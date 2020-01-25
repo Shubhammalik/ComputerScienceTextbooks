@@ -1,0 +1,123 @@
+4.1
+(a) [inf, 0, inf, inf, inf, inf, inf, inf, inf]
+    [inf, 0, 1, inf, inf, 4, 8, inf, inf]
+    [inf, 0, 1, 3, inf, 4, 7, 7, inf]
+    [inf, 0, 1, 3, 4, 4, 7, 5, inf]
+    [inf, 0, 1, 3, 4, 4, 7, 5, 8]
+    [inf, 0, 1, 3, 4, 4, 7, 5, 8]
+    [inf, 0, 1, 3, 4, 4, 6, 5, 6]
+    [inf, 0, 1, 3, 4, 4, 6, 5, 6]
+    [inf, 0, 1, 3, 4, 4, 6, 5, 6]
+    [inf, 0, 1, 3, 4, 4, 6, 5, 6]
+(b) A->B->C->D
+    |     |
+    E  F<-G->H  
+
+4.2 
+BellmanFord on the graph at each iteration
+0 [0, inf, inf, inf, inf, inf, inf, inf, inf, inf]
+1 [0, 7, 6, inf, inf, 6, 5, inf, 9, inf]
+2 [0, 7, 6, 5, 7, 6, 4, 4, 2, 3]
+3 [0, 7, 6, 5, 7, 6, 4, 3, 2, 2]
+4 [0, 7, 6, 5, 7, 6, 4, 3, 2, 2]
+5 [0, 7, 6, 5, 7, 6, 4, 3, 2, 2]
+6 [0, 7, 6, 5, 7, 6, 4, 3, 2, 2]
+7 [0, 7, 6, 5, 7, 6, 4, 3, 2, 2]
+8 [0, 7, 6, 5, 7, 6, 4, 3, 2, 2]
+9 [0, 7, 6, 5, 7, 6, 4, 3, 2, 2]
+
+4.3 Dfs starting from every node. Count the number of edges it has passed
+    till it reached the original node again, if it does.
+
+4.4 Length of the shortest cycle
+    What happens when the shortest cycle consists of two backedges?
+
+4.5 
+    #not tested yet
+    def bfs(G, u):
+        visited[u] = True
+        level[u] = 0
+        stack = [u]
+        while stack:
+            u = stack.pop(0)
+            for v in G[u]:
+                if not visited[v]:
+                    stack.append(v)
+                    level[v] = level[u] + 1
+                if level[v] == (level[u]+1): #if it has the same length as the previous v
+                    path[v] += path[u] 
+    
+4.6 Assume it is not a tree.
+
+4.7 Run Dijkstra's algorithm on the Graph G. then compare the lengths found by both trees.
+
+4.8 It is not a valid method since each path gets increased by a different
+    number depending on the number of edges it has.
+
+4.9 Yes, it can. supoose for one of its neighboring edges, it is s->t is 2
+
+4.10
+    Do explore on the edges, K times.
+
+4.11
+    Do a dfs, to check all paths.. if a back edge is encountered then we have a cycle and 
+    check the length of the cycle.
+
+4.12
+    start (u,v) and dfs.. and look for a cycle.
+
+4.13
+(a) Connect two cities with an undirected edge if le>=L
+    Then do a bfs or a dfs to determine if t is reachable from s 
+(b) Find the minimum distance between cities in the path from s to t.
+    But it can be less I think. do a binary search?
+
+4.14
+    Find the all the shortest paths to v0 and all the shortest paths from v0
+
+4.15
+    Use dijkstra's algorithm.. 
+    if dist[v]==dist[u]+w[(u,v)]: 
+        then  usq[s] = True 
+
+4.16
+(a) lol.. it is obvious? 
+(b) parent is j/d and its children are j*d+i where i is from 0 to d-1
+(c)
+(d) just ensure that j/d is smaller than every j 
+
+4.17
+(a) make dummy nodes and do a bfs.
+(b) 
+
+4.18
+for v in G[u]:
+    best[v]= min(best[v], best[u]+1)
+
+4.19
+for v in G[u]:
+    cost[v] = min(cost[v], cost[u]+w[(u,v)]+c[v])
+
+4.20
+Do a shortest path from one of the end of the edge and 
+Basically, shortest path with new edge e = (u,v)
+nshortest[v] = shortest[u]+WithNewEdgeshortest[v]
+maxdecrease = max(maxdecrease, shortest[v]-nshortest[v])
+
+4.21
+(a) edges should be log(rateab). but is a longest path problem.
+    I could have just negated the edges but, there are cycles in this
+    graph. Just do dijkstra's but with a modified condition?
+    Use a max heap?
+    for v in G[u]:
+        if longest[v]<longest[u]+w[(u,v)]:
+            longest[v]=longest[u]+w[(u,v)]
+
+    Nah.. just use Bellman-Ford to find the shortest path in the 
+    general graph with cycles and negative edges
+
+(b) Means we have a cycle if the shortest path can still be reduced even 
+    after n-1 explores on all edges.
+
+4.22
+
